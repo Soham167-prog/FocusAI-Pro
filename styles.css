@@ -1,0 +1,80 @@
+body {
+  margin: 0;
+  width: 280px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #0b0b0b;
+  color: #eaeaea;
+}
+
+.container {
+  padding: 14px;
+}
+
+.title {
+  font-weight: 650;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.toggle {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #2b2b2b;
+  background: #151515;
+  color: #eaeaea;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.toggle:hover {
+  background: #1f1f1f;
+}
+
+.toggle[aria-pressed="true"] {
+  border-color: #4f46e5;
+  background: #2b2592;
+}
+
+.toggle + .toggle {
+  margin-top: 10px;
+}
+
+.section {
+  margin-top: 14px;
+}
+
+.label {
+  display: block;
+  font-size: 12px;
+  color: #bdbdbd;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #2b2b2b;
+  background: #121212;
+  color: #eaeaea;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+.save {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #4f46e5;
+  background: #2b2592;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.save:hover {
+  filter: brightness(1.05);
+}

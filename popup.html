@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Focus AI Pro</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">Focus AI Pro</div>
+      <button id="toggleBtn" class="toggle" type="button">
+        Enable Focus Mode
+      </button>
+      <button id="strictToggleBtn" class="toggle" type="button">
+        Filter Mode: Blur
+      </button>
+      <div class="section">
+        <label for="intentInput" class="label">Intent (keywords)</label>
+        <input
+          id="intentInput"
+          class="input"
+          type="text"
+          placeholder="e.g. learn js"
+          autocomplete="off"
+        />
+        <button id="saveBtn" class="save" type="button">Save</button>
+      </div>
+      <button id="dashboardBtn" class="toggle" type="button">
+        Open Dashboard
+      </button>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

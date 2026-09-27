@@ -1,0 +1,309 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Focus AI Pro Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, Roboto, Arial, sans-serif;
+      background: #050505;
+      color: #f7f7f7;
+      padding-bottom: 40px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 30px 24px;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #a855f7, #6366f1);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .card {
+      background: rgba(20, 20, 20, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+    }
+
+    .card+.card {
+      margin-top: 16px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .metric {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .metric .label {
+      color: #a1a1aa;
+      font-weight: 600;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .metric .value {
+      font-weight: 800;
+      font-size: 28px;
+      color: #fff;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #fff;
+      font-size: 20px;
+      font-weight: 800;
+      box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);
+    }
+
+    .hint {
+      margin-top: 16px;
+      color: #71717a;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .insightList {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: #e4e4e7;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .insightList li {
+      margin-bottom: 8px;
+    }
+
+    .chartGrid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    @media (min-width: 900px) {
+      .chartGrid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .chartCard.wide {
+        grid-column: 1 / span 2;
+      }
+    }
+
+    .chartCard {
+      background: rgba(20, 20, 20, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 20px;
+      min-height: 300px;
+      backdrop-filter: blur(10px);
+    }
+
+    .chartTitle {
+      font-size: 15px;
+      font-weight: 700;
+      color: #d4d4d8;
+      margin: 0 0 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .chartWrap {
+      position: relative;
+      height: 240px;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      margin-top: 16px;
+      background: #111;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    th {
+      color: #a1a1aa;
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: #1a1a1a;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .score-pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .score-relevant {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+    }
+
+    .score-distracting {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+    }
+
+    .title-cell {
+      max-width: 300px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #fff;
+      font-weight: 500;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="title">Focus AI Pro — Productivity Dashboard</div>
+    <div class="card">
+      <div class="metrics">
+        <div class="metric">
+          <div class="label">Total time on YouTube</div>
+          <div class="value" id="totalTime">—</div>
+        </div>
+        <div class="metric">
+          <div class="label">Time in focus mode</div>
+          <div class="value" id="focusTime">—</div>
+        </div>
+        <div class="metric">
+          <div class="label">Productivity score</div>
+          <div class="value">
+            <span class="pill" id="productivityScore">—</span>
+          </div>
+        </div>
+      </div>
+      <div class="hint">
+        Productivity score is based on the ratio of focus-mode time to
+        overall time on YouTube.
+      </div>
+    </div>
+    <div class="chartGrid" style="margin-top: 16px;">
+      <div class="chartCard" style="display: flex; flex-direction: column;">
+        <h3 class="chartTitle">Advanced Behavioral Insights</h3>
+        <div style="margin-bottom: 12px; font-size: 13px; color: #a1a1aa;">
+          Fully localized JavaScript NLP engine evaluating your cognitive focus patterns and clickstream trajectory
+          without relying on external APIs.
+        </div>
+        <div id="aiOutput"
+          style="flex: 1; background: rgba(0,0,0,0.3); border-radius: 8px; padding: 16px; font-size: 14px; color: #e4e4e7; line-height: 1.6; border: 1px dashed rgba(255,255,255,0.1); overflow-y: auto;">
+          Awaiting analysis...
+        </div>
+      </div>
+      <div class="chartCard">
+        <h3 class="chartTitle">Category Breakdown</h3>
+        <div class="chartWrap">
+          <canvas id="categoryPie"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="chartGrid">
+      <div class="chartCard">
+        <h3 class="chartTitle">Focus vs Distraction</h3>
+        <div class="chartWrap">
+          <canvas id="focusDistractionPie"></canvas>
+        </div>
+      </div>
+      <div class="chartCard">
+        <h3 class="chartTitle">Daily Watch Time</h3>
+        <div class="chartWrap">
+          <canvas id="dailyWatchBar"></canvas>
+        </div>
+      </div>
+      <div class="chartCard wide">
+        <h3 class="chartTitle">Focus Score Trend</h3>
+        <div class="chartWrap">
+          <canvas id="focusTrendLine"></canvas>
+        </div>
+      </div>
+      <div class="chartCard">
+        <h3 class="chartTitle">Activity By Hour</h3>
+        <div class="chartWrap">
+          <canvas id="hourlyActivityBar"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 16px;">
+      <h3 class="chartTitle">Recent Clickstream Analysis</h3>
+      <div class="table-wrapper">
+        <table id="clickstreamTable">
+          <thead>
+            <tr>
+              <th>Video Title</th>
+              <th>Category</th>
+              <th>Relevance</th>
+              <th>Time Spent</th>
+              <th>Match Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="5" style="text-align: center; color: #71717a;">No clickstream data recorded yet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="chart.umd.min.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+
+</html>

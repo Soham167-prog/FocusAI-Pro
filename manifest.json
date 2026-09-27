@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Focus AI Pro",
+  "version": "2.0.0",
+  "permissions": ["activeTab", "storage", "scripting", "tabs"],
+  "action": {
+    "default_title": "Focus AI Pro",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["focus-core.js", "content.js"]
+    }
+  ]
+}
